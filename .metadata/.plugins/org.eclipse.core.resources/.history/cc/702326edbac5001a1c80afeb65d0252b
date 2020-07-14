@@ -1,0 +1,514 @@
+package dobak1;
+/* 
+ * [ê²Œì„ ê·œì¹™]
+ * 
+ * ê³µí†µ
+ *  - ?œ ???? ?”œ?Ÿ¬?˜ 1:1 ??ê²?
+ *  - 52?¥?˜ ?Š¸?Ÿ¼?”„ ì¹´ë“œë¥? ?‚¬?š©(13?¥(A~K)?”© 4ë¬¶ìŒ_
+ *    ?? ë¬¸ì–‘(?Š¤?˜?´?“œ, ?‹¤?´?•„ëª¬ë“œ, ?•˜?Š¸, ?´ë¡œë²„)?˜ ?˜ë¯¸ëŠ” ?—†?Œ
+ *  - ìµœì´ˆ ê¸°ë³¸ ì¹´ë“œ?Š” ê°ê° 2?¥?„ ë°°ë¶„
+ *  - 'J, Q, K'?Š” 10? ?œ¼ë¡? ê³„ì‚°
+ *  - 'A'?Š” '1? ' ?˜?Š” '11? '?œ¼ë¡? ê³„ì‚°?˜?Š”?°,
+ *    '? ?ˆ˜ > 21?  == 1? '?œ¼ë¡? ê³„ì‚°, '? ?ˆ˜ <= 21?  == 11? '?œ¼ë¡? ê³„ì‚°
+ * 
+ * ?œ ??
+ *  - ê¸°ë³¸ ì¹´ë“œë¥? ë°›ê³  ?‚œ ?›„ ?œ ???Š” ?Š¹?Œ¨ê°? ê²°ì •?˜ê¸? ? „ê¹Œì?, 'Hit'or'Stay'ë¥? ê²°ì •?•´?•¼ ?•¨
+ *  - 'Hit'ê²°ì • ?‹œ ?œ ???Š” ì¹´ë“œ 1?¥?„ ë½‘ìŒ 
+ *    'Hit'?Š” 4ë²ˆë§Œ ê°??Š¥. ì´? 6ê°œì˜ ì¹´ë“œë¥? ê°?ì§? ?ˆ˜ ?ˆ?Œ
+ *  - 'Stay'ê²°ì • ?‹œ ê°ì?˜ ì¹´ë“¤ë¥? ëª¨ë‘ ê³µê°œ?•˜ê³?, ? ?ˆ˜ë¥? ë¹„êµ?•˜?—¬ ?Š¹?Œ¨ë¥? ê²°ì •
+ * 
+ * ?”œ?Ÿ¬
+ *  - ?”œ?Ÿ¬?˜ ì²? ë²ˆì§¸ ì¹´ë“œ?Š” ?œ ???—ê²? ë³´ì—¬ì£¼ì? ?•Š?Œ
+ *    ?? '?'ë¡? ?‘œ?‹œ
+ *  - ?œ ??ê°? 'Hit'or'Stay'ë¥? ê²°ì •?•˜ë©?, ê°? ? ?ˆ˜ë¥? ë¹„êµ?•¨
+ *    ?”œ?Ÿ¬?˜ ? ?ˆ˜ê°? '21?  ?´?•˜'?´ê³?, ?œ ???˜ ? ?ˆ˜ë³´ë‹¤ ?‚®?„ ê²½ìš° ì¹´ë“œ 1?¥?„ ë½‘ìŒ
+ *    ?? ê²Œì„ ì§„í–‰ ì¤? 1?šŒë§? ë½‘ì„ ?ˆ˜ ?ˆ?Œ
+ *
+ * ?Š¹?Œ¨
+ * 1.?œ ?? ?Š¹ë¦?
+ *  - ?œ ???˜ ê¸°ë³¸ ì¹´ë“œ 2?¥?´ ë¸”ë™?­(A, K)?´ê³?, ?”œ?Ÿ¬?Š” ?•´?‹¹?˜ì§? ?•Š?„ ê²½ìš°
+ *  - ê°ì ? ?ˆ˜ê°? '21?  ?´?•˜'?´ê³?, ?œ ???˜ ? ?ˆ˜ê°? ?” ?†’?„ ê²½ìš°
+ *  - ?œ ???˜ ? ?ˆ˜ê°? '21?  ?´?•˜'?´ê³?, ?”œ?Ÿ¬?˜ ? ?ˆ˜?Š” '21? ?„ ì´ˆê³¼'?•  ê²½ìš°
+ *  
+ * 2.?œ ?? ?Œ¨ë°?
+ *  - ?”œ?Ÿ¬?˜ ê¸°ë³¸ ì¹´ë“œ 2?¥?´ ë¸”ë™?­(A, K)?´ê³?, ?œ ???Š” ?•´?‹¹?˜ì§? ?•Š?„ ê²½ìš°
+ *  - ê°ì ? ?ˆ˜ê°? '21?  ?´?•˜'?´ê³?, ?”œ?Ÿ¬?˜ ? ?ˆ˜ê°? ?” ?†’?„ ê²½ìš°
+ *  - ?œ ???˜ ? ?ˆ˜ê°? '21? ?„ ì´ˆê³¼'?•  ê²½ìš°
+ *  
+ * 3.ë¬´ìŠ¹ë¶?
+ *  - ê°ì ê¸°ë³¸ ì¹´ë“œ 2?¥?´ ë¸”ë™?­(A, K)?¼ ê²½ìš° 
+ *  - ê°ì ? ?ˆ˜ê°? ?™?¼?•œ ê²½ìš° 
+ */
+ 
+ 
+import java.util.Scanner;
+ 
+class blackjackGame {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        
+        boolean uCardSetFull = false;        // '?œ ??'?˜ ì¹´ë“œset?´ ë¹„ì–´?ˆ?Š” ?ƒ?ƒœë¡? ì´ˆê¸°?™”
+        boolean dCardSetFull = false;        // '?”œ?Ÿ¬'?˜ ì¹´ë“œset?´ ë¹„ì–´?ˆ?Š” ?ƒ?ƒœë¡? ì´ˆê¸°?™”
+        boolean gameWin = true;              // ê²Œì„ ê²°ê³¼ ?Œ?‹¨. ?Š¹ë¦¬ë¡œ ì´ˆê¸°?™”
+        int comCardSet[] = new int[52];      // ë¬´ì‘?œ„ë¡? ê²°ì •?œ ?ˆ«?ë¥? ???¥
+ 
+        comCardSetInit(comCardSet);          // ê³µìš© ì¹´ë“œset ?ƒ?„± ë°? ì´ˆê¸°?™” 
+        
+        // ?…Œ?Š¤?Š¸: ?ƒ?„±?œ ê³µìš© ì¹´ë“œset ?™•?¸
+/*      System.out.print("ê³µìš© ì¹´ë“œset");
+        comCardSetPrint(comCardSet);
+*/
+        // ?”Œ? ˆ?´?–´, ?”œ?Ÿ¬ ë¸”ë™?­ ?Œ?‹¨?„ ?œ„?•œ ???¥ ê³µê°„
+        boolean uBlackjack[] = new boolean[2];        // ?œ ???˜ ì¹´ë“œset?´ ë¸”ë™?­ ?ƒ?ƒœ?¸ì§? ?Œ?‹¨?•˜?Š” ê³µê°„
+        boolean dBlackjack[] = new boolean[2];        // ?”œ?Ÿ¬?˜ ì¹´ë“œset?´ ë¸”ë™?­ ?ƒ?ƒœ?¸ì§? ?Œ?‹¨?•˜?Š” ê³µê°„
+        boolean uBlackjackWin = false;                // ?œ ???˜ ë¸”ë™?­ ?Š¹ë¦? ?ƒ?ƒœ ì´ˆê¸°?™”
+        boolean dBlackjackWin = false;                // ?”œ?Ÿ¬?˜ ë¸”ë™?­ ?Š¹ë¦? ?ƒ?ƒœ ì´ˆê¸°?™”
+        
+        // ì¹´ë“œ ê¸°ë³¸ ?…‹?Œ…: ?œ ?? 2?¥, ?”œ?Ÿ¬ 2?¥ ë°°ë¶„
+        String uCardSet[] = new String[6];            // ?œ ???˜ ì¹´ë“œset ì¤?ë¹?
+        String dCardSet[] = new String[3];            // ?”œ?Ÿ¬?˜ ì¹´ë“œset ì¤?ë¹?
+        cardSetInit(uCardSet, dCardSet);              // ?œ ??ê³? ?”œ?Ÿ¬?˜ ì¹´ë“œset ?ƒ?„±
+        basicCardSetInit(comCardSet, uCardSet, uBlackjack);        // ?œ ???˜ ê¸°ë³¸ ì¹´ë“œ 2?¥ ë°°ë¶„
+        basicCardSetInit(comCardSet, dCardSet, dBlackjack);        // ?”œ?Ÿ¬?˜ ê¸°ë³¸ ì¹´ë“œ 2?¥ ë°°ë¶„
+        
+        // ê²Œì„ ì§„í–‰ ë£¨í”„
+        gameLoop(comCardSet, uCardSet, dCardSet, uCardSetFull, dCardSetFull,
+                uBlackjack, dBlackjack, uBlackjackWin, dBlackjackWin, gameWin, scan);
+ 
+        // ê²°ê³¼ ì¶œë ¥
+        gameResult(uCardSet, dCardSet, uBlackjackWin, dBlackjackWin, gameWin);
+ 
+        scan.close();
+    }
+ 
+////////////////////////// ë©”ì†Œ?“œ ?˜?—­
+ 
+/*
+ * 52?¥?´ ?“¤?–´?ˆ?Š” ?Š¸?Ÿ¼?”„ ê³µìš© ì¹´ë“œset?„ ?ƒ?„± ë°? ì´ˆê¸°?™”
+ * ?™?¼?•œ ì¹´ë“œ?Š” ì¤‘ë³µë¶ˆê?(?Š¤?˜?´?“œ,?‹¤?´?•„ëª¬ë“œ,?•˜?Š¸,?´ë¡œë²„ 13?¥?”© 4?Œ ì¡´ì¬)
+ * ?ˆœ?„œ ?ƒê´??—†?´ ë¬´ì‘?œ„ë¡? ?„?Œ
+ */
+    public static void comCardSetInit(int comCardSet[]) {
+        
+        boolean noSame[] = new boolean[52];
+        
+        // ë¬´ì‘?œ„ ?ˆ«? ê²°ì • ?‹œ ì¤‘ë³µ ë¶ˆê?ë¥? ?œ„?•œ ì¤?ë¹?
+        for(int i = 0; i < noSame.length ; i++) {
+            noSame[i] = false;
+        }
+        
+        // ì´? ê²°ì •?  ê°œìˆ˜ë§Œí¼ ì¤‘ë³µ?—†?Š” ?ˆ«?ê°? ?‚˜?˜¬ ?•Œê¹Œì? ë¬´ì‘?œ„ ê²°ì •?„ ë°˜ë³µ
+        int randLoop = 0;
+        int randTemp;
+        while(randLoop < 52) {
+            randTemp = (int)(Math.random() * 52);
+            if(noSame[randTemp] == false) {
+                noSame[randTemp] = true;
+                comCardSet[randLoop] = randTemp + 1;
+                randLoop++;
+            }
+        }
+    }
+    
+    // ?„?¸ ê³µìš© ì¹´ë“œset?„ ì¶œë ¥
+    public static void comCardSetPrint(int cardSet[]) {
+        for(int i=0; i < cardSet.length; i++) {
+            if (i % 3 == 0) {
+                System.out.println();
+            }
+            System.out.print("cardSet[" + i + "] = " + cardSet[i] + " ");
+        }
+        System.out.println("\n");
+    }
+    
+    // ?œ ??ê³? ?”œ?Ÿ¬?˜ ì¹´ë“œset ì´ˆê¸°?™”
+    public static void cardSetInit(String uCardSet[], String dCardSet[]) {
+        for (int i = 0; i < uCardSet.length; i++) {
+            uCardSet[i] = "0";
+        }
+        for (int i = 0; i < dCardSet.length; i++) {
+            dCardSet[i] = "0";
+        }
+    }
+    
+    // ê³µìš© ì¹´ë“œ?—?„œ ì´ˆê¸° ì¹´ë“œ 2?¥ ë½‘ê¸°
+    public static void basicCardSetInit(int comCardSet[], String cardSet[], boolean blackjack[]) {
+        String drawCardStr = "";
+        int drawCard = 0;
+        int cardSetPos = 0;
+        int drawLoop = 0;
+        
+        // ê³µìš© ì¹´ë“œset?—?„œ ë½‘ì? ì¹´ë“œ?Š” ?‹¤?‹œ ë½‘ì? ?•Š?Œ
+        while (drawLoop < 2) {
+            cardSetPos = (int)(Math.random() * 52);
+            drawCard = comCardSet[cardSetPos];
+            if (drawCard != 0) {
+                // ?…Œ?Š¤?Š¸: ê³µìš© ì¹´ë“œset?—?„œ ë½‘ì? ì¹´ë“œ?˜ ?œ„ì¹? ?™•?¸
+                // System.out.println("ë½‘ì? ì¹´ë“œ?˜ ë°°ì—´ ?¸?±?Š¤ = " + cardSetPos);
+                
+                drawCardStr = checkNum(drawCard, blackjack);
+                cardSet[drawLoop] = drawCardStr;
+                comCardSet[cardSetPos] = 0;
+                drawLoop++;
+            }
+        }
+ 
+/*      // ?…Œ?Š¤?Š¸: ë¸”ë™?­
+        cardSet[0] = checkNum(1, blackjack);
+        cardSet[1] = checkNum(13, blackjack);
+*/
+    }
+ 
+/*
+ * ì¹´ë“œë²ˆí˜¸ ì²´í¬ ë©”ì†Œ?“œ?Š” ?‘ ê°?ì§? ì¢…ë¥˜ê°? ?ˆ?œ¼ë©?,
+ * ì²? ë²ˆì§¸ ì²´í¬?‹œ?—ë§? ë¸”ë™?­?„ ?Œ?‹¨
+ */
+    // ì¹´ë“œë²ˆí˜¸ ì²´í¬ ë°? ë³??™˜ + ë¸”ë™?­ ?Œ?‹¨
+    public static String checkNum(int cardNum, boolean blackjack[]) {
+        String result = "";
+ 
+        // ë½‘ì? ì¹´ë“œ?˜ ë²ˆí˜¸ê°? '1'?´ë©? 'A'ë¡? ë³??™˜ 
+        if (cardNum == 1 || cardNum % 13 == 1) {
+            result = "A";
+            blackjack[0] = true;
+        } else if (cardNum % 13 == 0) {
+            cardNum = 13;
+            blackjack[1] = true;
+        }
+        else {
+            cardNum = (cardNum % 13);
+        }
+ 
+        // ì¹´ë“œ ë²ˆí˜¸ê°? '11' ?´?ƒ?´ë©? 'J, Q, K'ë¡? ë³??™˜
+        if (cardNum > 10) {
+            switch (cardNum) {
+                case 11:
+                    result = "J";
+                    break;
+                case 12:
+                    result = "Q";
+                    break;
+                case 13:
+                    result = "K";
+                    break;
+            }
+        }
+        // ?¼ë°? ?ˆ«?ë©? ë³??™˜ ?—†?Œ
+        else {
+            if (cardNum > 1 && cardNum <= 10) {
+                result = Integer.toString(cardNum);
+            }
+        }
+ 
+        return result;
+    }
+    
+    // ì¹´ë“œë²ˆí˜¸ ì²´í¬ ë°? ë³??™˜
+    public static String checkNum(int cardNum) {
+        String result = "";
+ 
+        // ?‹¤? œ ì¹´ë“œ ?ˆ«?ë¡? ë³??™˜
+        if (cardNum == 1 || cardNum % 13 == 1) {
+            result = "A";
+        } else if (cardNum % 13 == 0) {
+            cardNum = 13;
+        }
+        else {
+            cardNum = (cardNum % 13);
+        }
+ 
+        // ì¹´ë“œ ë²ˆí˜¸ê°? '11' ?´?ƒ?´ë©? 'J, Q, K'ë¡? ë³??™˜
+        if (cardNum > 10) {
+            switch (cardNum) {
+                case 11:
+                    result = "J";
+                    break;
+                case 12:
+                    result = "Q";
+                    break;
+                case 13:
+                    result = "K";
+                    break;
+            }
+        }
+        // ?¼ë°? ?ˆ«?ë©? ë³??™˜ ?—†?Œ
+        else {
+            result = Integer.toString(cardNum);
+        }
+ 
+        return result;
+    }
+    
+    // ê²Œì„ ë°˜ë³µ ë£¨í”„
+    public static void gameLoop(int comCardSet[], String uCardSet[], String dCardSet[],
+            boolean uCardSetFull, boolean dCardSetFull,
+            boolean uBlackjack[], boolean dBlackjack[],
+            boolean uBlackjackWin, boolean dBlackjackWin, boolean gameWin, Scanner scan) {
+        
+        System.out.println("ê²Œì„?„ ?‹œ?‘?•©?‹ˆ?‹¤.");
+        System.out.println();
+        
+        // ìµœì´ˆ?— ë°°ë¶„?œ ê¸°ë³¸ ì¹´ë“œ 2?¥?„ ê°ê° ê³µê°œ
+        System.out.println("?œ ???—ê²? ë°°ë¶„?œ ì¹´ë“œ");
+        cardSetNum(uCardSet, 1);
+        
+        System.out.println("?”œ?Ÿ¬?—ê²? ë°°ë¶„?œ ì¹´ë“œ");
+        cardSetNum(dCardSet, 2);
+        System.out.println();
+        
+        // ?œ ???˜ ê¸°ë³¸ ì¹´ë“œ 2?¥?´ 'A'?? 'K'ë©? ?œ ???˜ ë¸”ë™?­ ?Š¹ë¦¬ë¡œ ?Œ?‹¨
+        if (uBlackjack[0] == true && uBlackjack[1] == true) {
+            uBlackjackWin = true;
+        } 
+        // ?”œ?Ÿ¬?˜ ê¸°ë³¸ ì¹´ë“œ 2?¥?´ 'A'?? 'K'ë©? ?”œ?Ÿ¬?˜ ë¸”ë™?­ ?Š¹ë¦¬ë¡œ ?Œ?‹¨
+        if (dBlackjack[0] == true && dBlackjack[1] == true) {
+            dBlackjackWin = true;
+        }
+        
+        // ë°˜ë³µ ?‹œ?‘
+        while (true) {
+            // ì¹´ë“œë¥? ë½‘ì? ?›„ ?œ ???˜ ? ?ˆ˜ê°? '21'?„ ì´ˆê³¼?•˜ë©? ì¦‰ì‹œ ê²Œì„ ?Œ¨ë°?
+            if (pointResult(uCardSet) > 21) {
+                gameWin = false;
+                break;
+            }
+            
+            // ?œ ?? or ?”œ?Ÿ¬ê°? 'ë¸”ë™?­'?´ë©? ì¦‰ì‹œ ê²Œì„ ì¢…ë£Œ
+            if (uBlackjackWin || dBlackjackWin) {
+                break;
+            } else if (!gameWin) {
+                break;
+            }
+            else {
+            // ?œ ???—ê²? 'Hit or Stay' ë¬¼ì–´ë´?
+            System.out.print("?–‰?™?„ ê²°ì •?•´ì£¼ì„¸?š”. Hit(1), Stay(2): ");
+            int decision = scan.nextInt();
+            System.out.println();
+        
+                // ?œ ???´ 'Hit' ê²°ì • ?‹œ ì¶”ê? ì¹´ë“œ 1?¥ ë°›ìŒ            
+                if (decision == 1) {
+        
+                    // ì¹´ë“œ ë½‘ê¸° ì¡°ê±´: ???ƒ?˜ ì¹´ë“œset?´ ë¹„ì–´?ˆ?Š” ?ƒ?ƒœ?´?–´?•¼ ?•¨
+                    if (!cardFull(uCardSet, uCardSetFull)) {
+                        drawCardOne(comCardSet, uCardSet);        // ì¹´ë“œ ë½‘ê¸°
+                    }
+                    // ì¹´ë“œê°? ê½? ì°¾ì„ ê²½ìš° ê°•ì œë¡? 'Stay'ë¡? ?Œ?‹¨
+                    else {
+                        System.out.println("?” ?´?ƒ ì¹´ë“œë¥? ë°›ì„ ?ˆ˜ ?—†?Šµ?‹ˆ?‹¤. ê°•ì œë¡? 'Stay'?©?‹ˆ?‹¤.");
+                        decision = 2;
+                    }
+                    
+                    // ê°? ? ?ˆ˜ ë¹„êµ ?›„ ?”œ?Ÿ¬?˜ ? ?ˆ˜ê°? ?”Œ? ˆ?´?–´ë³´ë‹¤ ?‚®?œ¼ë©?, ?”œ?Ÿ¬ ì¶”ê? ì¹´ë“œ 1?¥  ?? 1?šŒ ?•œ? •
+                    // ì¹´ë“œ ë½‘ê¸° ì¡°ê±´: ?”œ?Ÿ¬?˜ ? ?ˆ˜ê°? ?œ ???˜ ? ?ˆ˜ë³´ë‹¤ ?‚®ê³?, ê³µê°„?˜ ?—¬?œ ê°? ?ˆ?Š” ?ƒ?ƒœ?—¬?•¼ ?•¨(= ì¹´ë“œê°? 2ê°œì¸ ?ƒ?ƒœ)
+                    if (pointResult(dCardSet) < pointResult(uCardSet) && !cardFull(dCardSet, dCardSetFull)) {        
+                        drawCardOne(comCardSet, dCardSet);        // ì¹´ë“œ ë½‘ê¸°
+                    }
+                    
+                    // ì¹´ë“œë¥? ë½‘ì? ?›„ ?œ ???˜ ? ?ˆ˜ê°? '21'?„ ì´ˆê³¼?•˜ë©? ì¦‰ì‹œ ê²Œì„ ?Œ¨ë°?
+                    if (pointResult(uCardSet) > 21) {
+                        gameWin = false;
+                        break;
+                    }
+                    
+                    System.out.println("?œ ???—ê²? ë°°ë¶„?œ ì¹´ë“œ ?ˆ«?");
+                    cardSetNum(uCardSet, 1);
+                    
+                    System.out.println("?”œ?Ÿ¬?—ê²? ë°°ë¶„?œ ì¹´ë“œ ?ˆ«?");
+                    cardSetNum(dCardSet, 2);
+                    
+                } else if (decision == 2) {
+                    // ê°? ? ?ˆ˜ ë¹„êµ ?›„ ?”œ?Ÿ¬?˜ ? ?ˆ˜ê°? ?”Œ? ˆ?´?–´ë³´ë‹¤ ?‚®?œ¼ë©? ?”œ?Ÿ¬ ì¶”ê? ì¹´ë“œ 1?¥  ?? 1?šŒ ?•œ? •
+                    
+                    // ì¹´ë“œ ë½‘ê¸° ì¡°ê±´: ?”œ?Ÿ¬?˜ ? ?ˆ˜ê°? ?œ ???˜ ? ?ˆ˜ë³´ë‹¤ ?‚®ê³?, ê³µê°„?˜ ?—¬?œ ê°? ?ˆ?Š” ?ƒ?ƒœ?—¬?•¼ ?•¨(= ì¹´ë“œê°? 2ê°œì¸ ?ƒ?ƒœ)
+                    if (pointResult(dCardSet) < pointResult(uCardSet) && !cardFull(dCardSet, dCardSetFull)) {        
+                        drawCardOne(comCardSet, dCardSet);        // ì¹´ë“œ ë½‘ê¸°
+                    }
+                    break;
+                }
+                else {
+                    // ?˜ˆ?™¸ ì²˜ë¦¬
+                    System.out.println("?˜ëª? ?…? ¥?•˜?…¨?Šµ?‹ˆ?‹¤. ?‹¤?‹œ ?…? ¥?•´ì£¼ì„¸?š”");
+                    System.out.println();
+                }
+            }
+        }
+    }
+    
+    // ì¹´ë“œ 1?¥ ë½‘ê¸°
+    public static void drawCardOne(int comCardSet[], String cardSet[]) {
+        int drawLoop = 0;
+        int cardSetPos = 0;
+        int drawCard = 0;
+        String drawCardStr = "";
+        while (drawLoop < 1) {
+            cardSetPos = (int)(Math.random() * 52);
+            drawCard = comCardSet[cardSetPos];
+    
+            if (drawCard != 0) {
+                // ?…Œ?Š¤?Š¸: ê³µìš© ì¹´ë“œset?—?„œ ë½‘ì? ì¹´ë“œ?˜ ?œ„ì¹? ?™•?¸
+                // System.out.println("ë½‘ì? ì¹´ë“œ?˜ ë°°ì—´ ?¸?±?Š¤ = " + cardSetPos);
+    
+                drawCardStr = checkNum(drawCard);
+                for (int i = 0; i < cardSet.length; i++) {
+                    if (cardSet[i] == "0") {
+                        cardSet[i] = drawCardStr;
+                        comCardSet[cardSetPos] = 0;
+                        drawLoop++;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+ 
+    // ë°°ë¶„?œ ì¹´ë“œ ì¶œë ¥
+    public static void cardSetNum(String cardSet[], int index) {
+        
+        // 'index' ê°’ì´ 1?´ë©? ì¹´ë“œset ê³µê°œ
+        // 'index' ê°’ì´ 2ë©? ì¹´ë“œset?—?„œ ì¹´ë“œ 1ê°? ?ˆ¨ê¹?
+        if (index == 1) {
+            for (int i = 0; i < cardSet.length; i++) {
+                if (cardSet[i] == "0") {
+                    System.out.print(" ");
+                }
+                else {
+                    System.out.print(cardSet[i] + " ");
+                }
+            }
+            System.out.println();
+        } else if (index == 2) {
+            for (int i = 0; i < cardSet.length; i++) {
+                if (i == 0) {        // ì²? ë²ˆì§¸ ?ë¦¬ì˜ ì¹´ë“œ ?ˆ¨ê¹?
+                    System.out.print("? ");
+                }
+                else {
+                    if (cardSet[i] == "0") {
+                        System.out.print(" ");
+                    }
+                    else {
+                        System.out.print(cardSet[i] + " ");
+                    }
+                }
+            }
+            System.out.println();
+        } 
+        else {
+            // ?˜ˆ?™¸ ì²˜ë¦¬
+            System.out.println("?””ë²„ê·¸. ?¸?±?Š¤ ê°’ì´ ?˜ëª»ë˜?—ˆ?Šµ?‹ˆ?‹¤.");
+        }
+    }
+    
+    // ?œ ???˜ ì¹´ë“œset?´ ê½? ì°? ?ƒ?ƒœ?¸ì§? ì²´í¬
+    public static boolean cardFull(String cardSet[], boolean cardSetFull) {
+        int count = 0;
+        for (int i = 0; i < cardSet.length; i++) {
+            if (cardSet[i] == "0") {
+                count++;
+            }
+        }
+        // ë¹„ì–´?ˆ?Š” ê°œìˆ˜ê°? ?—†?œ¼ë©? ê½? ì°? ?ƒ?ƒœ
+        if (count == 0) {
+            cardSetFull = true;
+        }
+        
+        return cardSetFull;
+    }
+    
+    // ? ?ˆ˜ êµ¬í•˜ê¸?
+    public static int pointResult(String cardSet[]) {
+        int point = 0;
+        
+        // 1ì°? ? ?ˆ˜ ?•©?‚°: ?•Œ?ŒŒë²? ì¹´ë“œ?Š” ?”°?¼ ? ?ˆ˜ë¥? ?‹¤ë¥´ê²Œ ?•©?‚°
+        for (int i = 0; i < cardSet.length; i++) {
+            if (cardSet[i] == "A") {
+                point += 1;
+            } else if (cardSet[i] == "J") {
+                point += 10;
+            } else if (cardSet[i] == "Q") {
+                point += 10;
+            } else if (cardSet[i] == "K") {
+                point += 10;
+            } else if (Integer.parseInt(cardSet[i]) > 1 
+                    && Integer.parseInt(cardSet[i]) <= 10) {
+                point += Integer.parseInt(cardSet[i]);
+            } 
+            else {
+                point += 0;
+            }
+        }
+        // 2ì°? ? ?ˆ˜ ?•©?‚°: 1ì°? ? ?ˆ˜ ?•©?‚°?´ ??‚œ ?’¤ ì¹´ë“œset?— 'A'ê°? ì¡´ì¬?•  ê²½ìš°,
+        // 10? ?„ ì¶”ê??•œ ? ?ˆ˜ê°? '21?  ?´?•˜'ë©? 10?  ì¶”ê?(= 'A'?Š” '11? 'ê³? ê°™ì? ?˜ë¯?)
+        for (int i = 0; i < cardSet.length; i++) {
+            if (cardSet[i] == "A" && point + 10 <= 21) {
+                point += 10;
+            } 
+        }
+    
+        return point;
+    }
+    
+/*
+ * ?Š¹?Œ¨
+ * 1.?œ ?? ?Š¹ë¦?
+ *  - ?œ ???˜ ê¸°ë³¸ ì¹´ë“œ 2?¥?´ ë¸”ë™?­(A, K)?´ê³?, ?”œ?Ÿ¬?Š” ?•´?‹¹?˜ì§? ?•Š?„ ê²½ìš°
+ *  - ê°ì ? ?ˆ˜ê°? '21?  ?´?•˜'?´ê³?, ?œ ???˜ ? ?ˆ˜ê°? ?” ?†’?„ ê²½ìš°
+ *  - ?œ ???˜ ? ?ˆ˜ê°? '21?  ?´?•˜'?´ê³?, ?”œ?Ÿ¬?˜ ? ?ˆ˜?Š” '21? ?„ ì´ˆê³¼'?•  ê²½ìš°
+ *  
+ * 2.?œ ?? ?Œ¨ë°?
+ *  - ?”œ?Ÿ¬?˜ ê¸°ë³¸ ì¹´ë“œ 2?¥?´ ë¸”ë™?­(A, K)?´ê³?, ?œ ???Š” ?•´?‹¹?˜ì§? ?•Š?„ ê²½ìš°
+ *  - ê°ì ? ?ˆ˜ê°? '21?  ?´?•˜'?´ê³?, ?”œ?Ÿ¬?˜ ? ?ˆ˜ê°? ?” ?†’?„ ê²½ìš°
+ *  - ?œ ???˜ ? ?ˆ˜ê°? '21? ?„ ì´ˆê³¼'?•  ê²½ìš°
+ *  
+ * 3.ë¬´ìŠ¹ë¶?
+ *  - ê°ì ê¸°ë³¸ ì¹´ë“œ 2?¥?´ ë¸”ë™?­(A, K)?¼ ê²½ìš° 
+ *  - ê°ì ? ?ˆ˜ê°? ?™?¼?•œ ê²½ìš° 
+ */
+    
+    // ê²°ê³¼ ì¶œë ¥
+    public static void gameResult(String uCardSet[], String dCardSet[], 
+            boolean uBlackjackWin, boolean dBlackjackWin, boolean gameWin) {
+        System.out.println("ì¹´ë“œë¥? ?˜¤?”ˆ?•©?‹ˆ?‹¤.");
+        System.out.println();
+        
+        // ?œ ???—ê²? ë°°ë¶„?œ ì¹´ë“œ?? ? ?ˆ˜ ì¶œë ¥
+        System.out.println("?œ ???—ê²? ë°°ë¶„?œ ì¹´ë“œ");
+        cardSetNum(uCardSet, 1);
+        
+        System.out.println("?œ ???˜ ? ?ˆ˜ = " + pointResult(uCardSet));
+        System.out.println();
+        
+        // ?”œ?Ÿ¬?—ê²? ë°°ë¶„?œ ì¹´ë“œ?? ? ?ˆ˜ ì¶œë ¥
+        System.out.println("?”œ?Ÿ¬?—ê²? ë°°ë¶„?œ ì¹´ë“œ");
+        cardSetNum(dCardSet, 1);
+        
+        System.out.println("?”œ?Ÿ¬?˜ ? ?ˆ˜ = " + pointResult(dCardSet));
+        System.out.println();
+        
+        // ê²°ê³¼ ë©”ì‹œì§? - ë¸”ë™?­ ?œ ë¬?
+        if (uBlackjackWin && !dBlackjackWin) {
+            System.out.println("??ë°?! ?˜… ì¶•í•˜?•©?‹ˆ?‹¤ ?˜… 'ë¸”ë™?­'?œ¼ë¡? ?Š¹ë¦?!!");
+        } else if (!uBlackjackWin && dBlackjackWin) {
+            System.out.println("?—... 'ë¸”ë™?­'?œ¼ë¡? ?Œ¨ë°?!");
+        } else if (uBlackjackWin && dBlackjackWin) {
+            System.out.println("?´?Ÿ´?ˆ˜ê°?!! 'ë¸”ë™?­'?œ¼ë¡? ë¬´ìŠ¹ë¶?!!!");
+        }
+        // ê²°ê³¼ ë©”ì‹œì§? - ? ?ˆ˜ ë¹„êµ
+        else {
+            if (gameWin && pointResult(uCardSet) > pointResult(dCardSet) 
+                    && pointResult(uCardSet) <= 21
+                    || gameWin && pointResult(uCardSet) < pointResult(dCardSet)
+                    && pointResult(dCardSet) > 21) {
+                System.out.println("ê²°ê³¼ = ?˜… ì¶•í•˜?•©?‹ˆ?‹¤ ?˜… ?Š¹ë¦¬í•˜?…¨?Šµ?‹ˆ?‹¤!!");
+            } else if (gameWin && pointResult(uCardSet) == pointResult(dCardSet)
+                    && pointResult(uCardSet) <= 21) {
+                System.out.println("?´?Ÿ´?ˆ˜ê°?... ë¬´ìŠ¹ë¶??…?‹ˆ?‹¤!");
+            }
+            else {
+                System.out.println("ê²°ê³¼ = ?Œ¨ë°?!");
+            }
+        }
+    }
+}
+
+
+

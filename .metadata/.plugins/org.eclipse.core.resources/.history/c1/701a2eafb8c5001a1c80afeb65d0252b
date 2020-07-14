@@ -1,0 +1,123 @@
+﻿//package miniproject;
+
+public class AsciiArt {
+	public static void main(String[] args) {
+		AsciiArtBoss();
+		AsciiArtDog();
+		AsciiArtCat();
+	}
+
+	public static void typeAscii() {
+		String[] a = new String[100];
+		a[0] = "	  /$$$$$$        /$$                                 /$$ ";
+		a[1] = "	  /$$__  $$      | $$                                | $$                                  ";
+		a[2] = "	 | $$  \\ $$  /$$$$$$$ /$$    /$$ /$$$$$$  /$$$$$$$  /$$$$$$   /$$   /$$  /$$$$$$   /$$$$$$ ";
+		a[3] = "	 | $$$$$$$$ /$$__  $$|  $$  /$$//$$__  $$| $$__  $$|_  $$_/  | $$  | $$ /$$__  $$ /$$__  $$";
+		a[4] = "	 | $$__  $$| $$  | $$ \\  $$/$$/| $$$$$$$$| $$  \\ $$  | $$    | $$  | $$| $$  \\__/| $$$$$$$$";
+		a[5] = "	 | $$  | $$| $$  | $$  \\  $$$/ | $$_____/| $$  | $$  | $$ /$$| $$  | $$| $$      | $$_____/";
+		a[6] = "	 | $$  | $$|  $$$$$$$   \\  $/  |  $$$$$$$| $$  | $$  |  $$$$/|  $$$$$$/| $$      |  $$$$$$$";
+		a[7] = "	 |__/  |__/ \\_______/    \\_/    \\_______/|__/  |__/   \\___/   \\______/ |__/       \\_______/";
+		for(int i=0; i<a.length; i++) {
+			if(a[i]!=null) {
+				System.out.println(a[i]);
+			}
+		}
+		
+	}
+
+	public static void AsciiArtCat() {
+		System.out.println("                   _..");
+		System.out.println("  /}_{\\           /.-'");
+		System.out.println(" ( a a )-.___...-'/");
+		System.out.println(" ==._.==         ;");
+		System.out.println("      \\ i _..._ /,");
+		System.out.println("       {_;/   {_// ");
+	}
+
+	public static void AsciiArtDog() {
+		System.out.println("                            __");
+		System.out.println("     ,                    ,\" e`--o");
+		System.out.println("     \\\\~----------------' \\_;//");
+		System.out.println("     (                      /");
+		System.out.println("     /) ._______________.  )");
+		System.out.println("    (( (               (( (");
+		System.out.println("     ``-'               ``-'");
+	}
+
+	public static void AsciiArtBoss() {
+		System.out.println(
+				"            .:+-///-``                                                                              ");
+		System.out.println(
+				"          `:+/+yhsoo+++/:-`                     ```````.....----..``                                ");
+		System.out.println(
+				"        .:oshosy++ooosyyyys+-           `.-/+ossssssooooossssssyysssoo+/:-.``                       ");
+		System.out.println(
+				"       :oyyss+ooshhso+++osyhy+`     `.:oosyhhyysoooooosssssssssssyyyyhhyhddhys+:-`                  ");
+		System.out.println(
+				"     `-osso++o+//so+++/+++oyyys.  ./syyhhys+/::-.--:///+oossyhyyyyyyyyyyhhdmmhhyyo-                 ");
+		System.out.println(
+				"  `.-/+/++so+/:--+:``.-///+osyho./yhhhyo:-...--:/+ossyyhhhdddddddddddhyyyyhdhy+-.                   ");
+		System.out.println(
+				"  /o+//:--hdo//-``     `//:+oyhhoyhhso++ooyhddmmmmmmmmmmmmmmmmmmmmmmd/```..-:+oyss+:.`              ");
+		System.out.println(
+				"   --.` `+ss+:`         -:-/oyhd+/sosyhhhhdmmmmmmmmmmmmmmmmmmmmmmmmdy           .-/+so+:.`          ");
+		System.out.println(
+				"        `/++.           :--/syhd-:-smddhhhhdddddddddddddddddmmdddmmdh`               `.:/+/-.       ");
+		System.out.println(
+				"        `/+-           --.-+sydh.` -ddhhhhdhddhhhhhdhhhhhhyhhhhyhyhdd/                    `-:/:``   ");
+		System.out.println(
+				"        `-.`         `....+syhdo`   hyhddmdddhdhhhhhhhhyyysso/-.``.--/`                       `--.  ");
+		System.out.println(
+				"                   `.--.-+oyhdh-   `ysdmmdhdhhhdhhhhhhhyyso:                                        ");
+		System.out.println(
+				"                  .-..`-/oshdd+`   +shddyhdhyyhdhhhyyyyhys+                                         ");
+		System.out.println(
+				"                `--.``:/+syhdh-  `oddhyyddhyyyyhhyyyyssyhy/                                         ");
+		System.out.println(
+				"               `-...`-:+syhdms..+hhyyhddhyyyyysyyyso+ossyh+                                         ");
+		System.out.println(
+				"              `--...-:/oyhhmmyysoyhyddhyyssosyosoydddmdmdyyo/.`                                     ");
+		System.out.println(
+				"              .--...:+oyhhhdmsoohyyhyyyyyssssys+smmdmmmmmmdmmdy/.                                   ");
+		System.out.println(
+				"              --:--::/+shhhdmhhddhdhyyyyyyyhmNmddmmddhhdmmNdmdddh/`                                 ");
+		System.out.println(
+				"              ///:::/++yhhhhdmdhhdhhhhhysshNmddmmddyyyhyyhdhhhddddy.                                ");
+		System.out.println(
+				"              :::---/++shhhhhdmmmmdddhhyssdhysydmmsoshhh+oosossyhddh:                               ");
+		System.out.println(
+				"              -::-::///+syyhyyhhhdddddddddhyyyyyhyooyydho+++++++osydh.                              ");
+		System.out.println(
+				"              `//:::-/+++oso+osyhhhhhhhhhhhyyyyyho+syyhs-..-:/o+++oyhy`                             ");
+		System.out.println(
+				"               .///:::/++o+//oosyhhhyyyyyyyyyssys++yyhy.      `:++++sh+                             ");
+		System.out.println(
+				"                .///:-:/+++++oyyyhhhyoooossooosho/syhy/         .///+sh-                            ");
+		System.out.println(
+				"                 `::/+/:/osssssyyyyhh+++++o++ohho+yyho`          `://+ys                            ");
+		System.out.println(
+				"                   .://+/+sssyyyyyyyho////++oo/+osyyhdhs/:-       `:/++y:                           ");
+		System.out.println(
+				"                    `/+++++osyyyyysyhho+///:-` /oyhyyyyyhhh.       `://oy-                          ");
+		System.out.println(
+				"                     `syyso://ooyyysyho-.`     /yyy+```:dd+        `-+++os+:-`                      ");
+		System.out.println(
+				"                       :hhd+    `-+yyssy`       .yyys- `ydd:     ..:oso+:+osyys:                    ");
+		System.out.println(
+				"                      /hhy.       :yssy         .sys/.ydh+    `syy+`    ./++oo:                     ");
+		System.out.println(
+				"                     `yhh-         /yss          .yysymdy.    `+o:`       ````                      ");
+		System.out.println(
+				"                     /sy/          .ysy`          sssoyo-.                                          ");
+		System.out.println(
+				"                   `:oss`          `ysy-      ```-sso                                               ");
+		System.out.println(
+				"             //:-::/ohs-       ````:sos`  `/+oossyss+                                               ");
+		System.out.println(
+				"           .+yyyssyydd-    `:/+sooossoo   `-sssshys/.                                               ");
+		System.out.println(
+				"           ``../++:---`    `.shyyhhyso:         ..                                                  ");
+		System.out.println(
+				"                              ..``-:`                                                          ");
+	}
+}

@@ -1,0 +1,82 @@
+package dobak1;
+//package game;
+
+import java.io.IOException;
+
+public class Shop {
+
+	private int apple;
+	private int gem;
+	private int b;
+
+	Shop() {
+		apple = 1;
+		gem = 1;
+	}
+
+	public void itemStore() throws IOException, InterruptedException {
+		while (true) {
+
+			System.err.print("ë¡œë”©ì¤?");
+			String load = "./.|";
+			for (int i = 0; i < 20; i++) {
+				String data = load.charAt(i % load.length()) + "";
+				System.err.write(data.getBytes());
+
+				Thread.sleep(20);
+
+			}
+
+			System.err.println("?™„ë£?");
+			System.out.println("====?ƒ? ?— ?–´?„œ?˜¤?„¸?š”~!====");
+			System.out.println("[1]?‚¬ê³? 1$- ? „?ˆ¬ ì¤? ì²´ë ¥ 10?šŒë³?");
+			System.out.println("[2]ë³´ì„ 2$- ? „?ˆ¬ ì¤? ë§ˆë‚˜ 2?šŒë³?");
+			System.out.println("[3]?‚˜ê°?ê¸?");
+			System.out.println("======================");
+			System.out.print("?„ ?ƒ>>");
+
+			int a = View.sc.nextInt();
+			if (a != 3) {
+				System.out.print("ê°??ˆ˜>>");
+				b = View.sc.nextInt();
+			} else {
+				return;
+			}
+			switch (a) {
+			case 1:
+				// is[0]= new itemStorage(i.apple+curCnt*b,i.gem);
+				if (Character.coin > 0) {
+					Character.apple += (apple * b);
+					if (Character.coin >= 1 * b) {
+						Character.coin -= 1 * b;
+						System.out.printf("?‚¬ê³¼ë?? %dê°? êµ¬ë§¤?•˜???Šµ?‹ˆ?‹¤.\n", b);
+					} else {
+						System.out.println("ì½”ì¸?´ ë¶?ì¡±í•©?‹ˆ?‹¤");
+					}
+				} else {
+					System.out.println("ì½”ì¸?´ ë¶?ì¡±í•©?‹ˆ?‹¤");
+				}
+				break;
+			case 2:
+				// is[0]= new itemStorage(i.apple,i.gem+curCnt*b);
+
+				if (Character.coin > 1) {
+					if (Character.coin >= 2 * b) {
+						Character.coin -= 2 * b;
+						System.out.printf("ë³´ì„?„ %dê°?  êµ¬ë§¤?•˜???Šµ?‹ˆ?‹¤.\n", b);
+					}
+					else {
+						System.out.println("ì½”ì¸?´ ë¶?ì¡±í•©?‹ˆ?‹¤");
+					}
+					
+				} else {
+					System.out.println("ì½”ì¸?´ ë¶?ì¡±í•©?‹ˆ?‹¤");
+				}
+				break;
+			default:
+				break;
+			}
+
+		}
+	}
+}

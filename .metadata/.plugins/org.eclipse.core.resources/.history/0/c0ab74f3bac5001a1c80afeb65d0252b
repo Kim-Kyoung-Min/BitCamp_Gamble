@@ -1,0 +1,27 @@
+package dobak2;
+
+public class RacingThread extends Thread{
+	RaceAttb ra;
+	Racing race;
+	public RacingThread(RaceAttb ra) {
+		this.ra =ra;
+		race = new Racing(ra);
+	}
+	
+	@Override
+	public void run() {
+		try {
+			while(true) {
+				for(int i = 6; i > 0; --i) {
+					race.myPrintln("경마 시작까지 "+i*10 + "초 남았습니다.");
+					sleep(10000);
+				}
+				race.showAll();  
+				race.ra.init();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+	}
+}

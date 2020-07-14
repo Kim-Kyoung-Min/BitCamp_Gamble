@@ -1,0 +1,81 @@
+//package game;
+
+import java.io.IOException;
+
+public class Shop {
+
+	private int apple;
+	private int gem;
+	private int b;
+
+	Shop() {
+		apple = 1;
+		gem = 1;
+	}
+
+	public void itemStore() throws IOException, InterruptedException {
+		while (true) {
+
+			System.err.print("로딩중");
+			String load = "./.|";
+			for (int i = 0; i < 20; i++) {
+				String data = load.charAt(i % load.length()) + "";
+				System.err.write(data.getBytes());
+
+				Thread.sleep(20);
+
+			}
+
+			System.err.println("완료");
+			System.out.println("====상점에 어서오세요~!====");
+			System.out.println("[1]사과 1$- 전투 중 체력 10회복");
+			System.out.println("[2]보석 2$- 전투 중 마나 2회복");
+			System.out.println("[3]나가기");
+			System.out.println("======================");
+			System.out.print("선택>>");
+
+			int a = View.sc.nextInt();
+			if (a != 3) {
+				System.out.print("갯수>>");
+				b = View.sc.nextInt();
+			} else {
+				return;
+			}
+			switch (a) {
+			case 1:
+				// is[0]= new itemStorage(i.apple+curCnt*b,i.gem);
+				if (Character.coin > 0) {
+					Character.apple += (apple * b);
+					if (Character.coin >= 1 * b) {
+						Character.coin -= 1 * b;
+						System.out.printf("사과를 %d개 구매하였습니다.\n", b);
+					} else {
+						System.out.println("코인이 부족합니다");
+					}
+				} else {
+					System.out.println("코인이 부족합니다");
+				}
+				break;
+			case 2:
+				// is[0]= new itemStorage(i.apple,i.gem+curCnt*b);
+
+				if (Character.coin > 1) {
+					if (Character.coin >= 2 * b) {
+						Character.coin -= 2 * b;
+						System.out.printf("보석을 %d개  구매하였습니다.\n", b);
+					}
+					else {
+						System.out.println("코인이 부족합니다");
+					}
+					
+				} else {
+					System.out.println("코인이 부족합니다");
+				}
+				break;
+			default:
+				break;
+			}
+
+		}
+	}
+}

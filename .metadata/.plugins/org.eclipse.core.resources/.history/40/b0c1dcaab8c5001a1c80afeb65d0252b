@@ -1,0 +1,290 @@
+﻿
+//package game;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Character implements Serializable { // 사용자 캐릭터 정보
+	private int hp;
+	private int hpbox;
+	private int attackdamage;
+	private int level;
+	private int expbox;
+	private int exp;
+	private int damageup;
+	private int mana;
+	private int manabox;
+	private int manaDamage;
+	private int manaDamageUp;
+	static int coin;
+	private int gop;
+	static int apple;
+	static int gem;
+	String[][] asciiArt;
+	final static int ITEM_MAX = 2;
+	final static int ITEM_SIZE = 100;
+
+	Character() {
+		this.hp = 20;
+		this.hpbox = hp;
+		this.gop = 2;
+		this.level = 1;
+		this.exp = 0;
+		this.expbox = 10;
+		this.damageup = 3;
+		this.mana = 2;
+		this.manabox = 10;
+		this.manaDamageUp = 4;
+		this.coin = 0;
+		this.asciiArt = new String[ITEM_MAX][ITEM_SIZE];
+		this.apple = 0;
+		this.gem = 0;
+	}
+
+	public void LevelUp() { // 사용자 레벨업 정보
+		level++;
+		hpbox = hpbox + (5 * level);
+		manabox = manabox + (5 * level);
+		damageup = damageup + (2 * level);
+		manaDamageUp = manaDamage + (4 * level);
+		exp = exp - expbox;
+		expbox = expbox + (5 * level);
+	}
+
+	public void recovery(int hp) throws InterruptedException {
+		if (this.hp < hpbox) {
+			System.out.println("*****체력을 " + hp + "회복 했습니다*****");
+			Thread.sleep(1000);
+			this.hp = this.hp + hp;
+			System.out.println();
+
+		} else {
+			System.out.println("*****더이상 채울 체력이 없습니다*****");
+			Thread.sleep(1000);
+			this.hp = hpbox;
+			System.out.println();
+		}
+		if (this.hp >= hpbox) {
+			this.hp = hpbox;
+		}
+	}
+
+	public int attackdamageRandom() {
+
+		return attackdamage = View.rd.nextInt(4) + 3;
+	}
+
+	public int ManadamageRandom() {
+		mana += -2;
+		return manaDamage = View.rd.nextInt(5) + manaDamageUp + 1000;
+	}
+
+	public void cAttackSound() throws InterruptedException {
+		Thread.sleep(3000);
+		System.out.println("쿵!!");
+	}
+
+	public void userMagicAttackSound() throws InterruptedException {
+		Thread.sleep(3000);
+		System.err.println("★뾰로롱");
+	}
+
+	public void getMana() {
+		this.mana = 2;
+	}
+
+	public void CharacterStatus() throws IOException, InterruptedException {
+		System.err.print("로딩중");
+		String load = "./.|";
+		for (int i = 0; i < 20; i++) {
+			String data = load.charAt(i % load.length()) + "";
+			System.err.write(data.getBytes());
+
+			Thread.sleep(20);
+
+		}
+		System.err.println("완료");
+		View.sc.nextLine();
+		System.out.println();
+		System.out.printf("현재 레벨 : %d \n", level);
+		System.out.printf("현재 체력 : %d / %d \n", hp, hpbox);
+		System.out.printf("현재 경험치 : %d / %d \n", exp, expbox);
+		System.out.println("현재 코인 : " + coin);
+		System.out.println("현재 사과: " + apple);
+		System.out.println("현재 젬: " + gem);
+
+	}
+
+	public void showItems() {
+		System.out.println("1> 사과 : [" + apple + "]");
+		System.out.println("2> 젬 : [" + gem + "]");
+
+	}
+
+	public void selectAttack() {
+		System.out.println("=========================================");
+		System.out.print("[1]공격하기");
+		System.out.print("[2]마법공격하기");
+		System.out.print("[3]아이탬 사용");
+		System.out.println("[4]도망가기");
+		System.out.println("=========================================");
+	}
+
+	public int battleAttack(int mHp, String choice) throws InterruptedException {
+		while (true) {
+			switch (choice) {
+			case "1":
+				attackdamageRandom();
+				System.out.println("유저가 일반공격 합니다");
+				cAttackSound();
+				mHp = mHp - attackdamage;
+				System.err.printf("%d데미지를 입혔습니다\n", attackdamage);
+				if (mHp > 0) {
+					System.out.printf("몬스터의 hp가 %d 남았습니다\n", mHp);
+				} else if (mHp <= 0) {
+					System.out.println("몬스터의 체력이 0이 되었습니다.");
+				}
+				return mHp;
+			case "2":
+				if (mana >= 2) {
+					ManadamageRandom();
+					System.out.println("유저가 스킬공격 합니다");
+					userMagicAttackSound();
+					mHp = mHp - manaDamage;
+					System.out.printf("%d데미지를 입혔습니다\n", manaDamage);
+					if (mHp >= 0) {
+						System.out.printf("몬스터의 hp가 %d 남았습니다\n", mHp);
+					} else if (mHp < 0) {
+						System.out.println("몬스터의 체력이 0이 되었습니다.");
+					}
+					return mHp;
+				} else {
+					System.out.println("마나가 부족합니다 다시 선택하세요");
+					break;
+				}
+			case "3":
+				showItems();
+				System.out.println("무슨 아이템을 사용하시겠습니까?");
+				String a = View.sc.next();
+				switch (a) {
+				case "1":
+					if (apple > 0) {
+						hp = hp + 10;
+						apple--;
+						if (hp >= hpbox) {
+							hp = hpbox;
+						} else if (hp == hpbox) {
+							System.out.println("사과를 먹었지만 이미 최대 체력입니다");
+						}
+						System.err.printf("사과를 사용하여 현재 체력이 %d 되었습니다\n", hp);
+
+						return mHp;
+					} else {
+						System.err.println("사용할 사과가 없습니다.");
+						break;
+					}
+				case "2":
+					if (gem > 0) {
+						mana = mana + 10;
+						gem--;
+						if (mana >= manabox) {
+							mana = manabox;
+						} else if (mana == manabox) {
+							System.out.println("젬을 사용했지만 이미 최대 마나입니다");
+						}
+						System.err.printf("보석을 사용하여 현재 마나가 %d 되었습니다\n", mana);
+						return mHp;
+					} else {
+						System.err.println("사용할 보석 없습니다.");
+						break;
+					}
+
+				default:
+					System.out.println("숫자를 제대로 입력해주세요");
+					break;
+				}
+				break;
+			case "4":
+				System.out.println("도망쳤습니다");
+				mHp += 10000;
+				return mHp;
+			default:
+				System.out.println("숫자를 제대로 입력해주세요");
+				break;
+				
+			}
+	
+
+			selectAttack();
+			choice = View.sc.next();
+		}
+
+	}
+
+	public int userHp() {
+		return hp;
+	}
+
+	public boolean subHp(int hp) {
+		this.hp = hp;
+		if ((int) this.hp <= 0) {
+			this.hp = 1;
+
+			return false;
+		}
+		return true;
+
+	}
+
+	public void setExp(int d) {
+		this.exp += d;
+		if (this.exp > expbox) {
+			LevelUp();
+		}
+
+	}
+
+	public void setCoin(int c) {
+		this.coin += c;
+		if (this.coin > 30000) {
+			System.out.println("코인 보유량 30000이 최대치 입니다 ");
+			this.coin = 30000;
+		}
+	}
+
+	public void getArtReword(String[] arr) {
+		int j = 0;
+		int k = 1;
+		if (arr != null && asciiArt[j][0] == null && arr != asciiArt[k]) {
+			System.out.println("★★★★★★★★★★★★★");
+			System.out.println("★그림을 획득했습니다 ★");
+			System.out.println("★★★★★★★★★★★★★");
+			asciiArt[j] = arr;
+		}
+
+		else if (arr != null && asciiArt[k][0] == null && arr != asciiArt[j]) {
+			System.out.println("★★★★★★★★★★★★★");
+			System.out.println("★그림을 획득했습니다 ★");
+			System.out.println("★★★★★★★★★★★★★");
+			asciiArt[k] = arr;
+		} else if (arr == null) {
+			System.out.println("그림획득 실패");
+		} else {
+			System.out.println("이미 가지고 있는 그림입니다");
+		}
+
+	}
+
+	public void showAsciiArt(int sel) {
+		if (asciiArt[sel][0] != null) {
+			for (int i = 0; i < asciiArt[sel].length; i++) {
+				System.out.println(asciiArt[sel][i]);
+			}
+		} else {
+			System.out.println("그림이 없습니다");
+		}
+	}
+
+}

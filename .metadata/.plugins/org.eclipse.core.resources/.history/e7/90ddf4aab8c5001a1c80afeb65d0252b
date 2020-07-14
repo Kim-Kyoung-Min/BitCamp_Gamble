@@ -1,0 +1,203 @@
+import java.util.Scanner;
+
+/*	출발 = 랜덤값
+ * 	줄수 = 랜덤값
+ * 	끝값 = 출발, 줄수 랜덤값
+ */
+class ShowMenu {
+	public int coin = 10000; // 사용자가 가지고 있는 돈
+	public int bettingCoin = 0;
+
+	public void showAll() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("어디에 배팅하시겠어요?");
+		System.out.println("현재 잔액 : " + coin);
+		System.out.println("★배팅 금액 입력★");
+		bettingCoin = scan.nextInt();
+		System.out.println("┌─────────────────┐");
+		System.out.println("　   배팅을 선택하세요. ");
+		System.out.println("　       1. 좌출발         ");
+		System.out.println("　       2. 우출발         ");
+		System.out.println("　       3. 3줄        	  ");
+		System.out.println("　       4. 4줄        	  ");
+		System.out.println("　       5. 홀        	  ");
+		System.out.println("　       6. 짝        	  ");
+		System.out.println("└─────────────────┘");
+	}
+
+}
+
+class ChoiceMenu {
+
+	public String userChoice() {
+		Scanner sc = new Scanner(System.in);
+		String userChoice = sc.nextLine();
+		return userChoice;
+	}
+
+}
+
+class Start {
+	// 출발 줄수 정하기 1 == 좌 , 2== 우
+	public int startNum;
+	// 랜덤으로 1~10까지 지정
+	private int randomStart;
+
+	// 랜덤으로 1~10까지 숫자를 만들어 5이하면 1(좌출발), 6이상이면 2(우출발)
+	public void play() throws InterruptedException {
+		randomStart = (int) (Math.random() * 10) + 1;
+		if (randomStart <= 5) {
+			startNum = 1;
+			System.out.println();
+			Thread.sleep(1000);
+			System.out.println("　　　　좌출발");
+		} else if (randomStart >= 6) {
+			startNum = 2;
+			System.out.println();
+			Thread.sleep(1000);
+			System.out.println("　　　　　  　	　   우출발");
+		}
+	}
+
+	// Line class에 넘겨주기위해 만듬
+	public int randomStartNum() {
+		return startNum;
+	}
+}
+
+class Line {
+	// 3줄 , 4줄 정하기
+	public int lineNum;
+	int startLineStart;
+
+	public String gameResult0;
+	public String gameResult1;
+	public String gameResult2;
+
+	// 랜덤으로 1~10까지 숫자를 만들어 5이하면 3줄, 6이상이면 4줄
+	public void play(ShowMenu sm) throws InterruptedException {
+		Start start = new Start();
+		ChoiceMenu cm = new ChoiceMenu();
+		Line line = new Line();
+		start.play();
+		startLineStart = (int) (Math.random() * 10) + 1;
+		if (start.randomStartNum() == 1 && startLineStart <= 5) {
+			// 좌출발,3줄
+			System.out.println("　　　　　└───────────┐");
+			Thread.sleep(1000);
+			System.out.println("　　　　　┌───────────┘");
+			Thread.sleep(2000);
+			System.out.println("　　　　　└───────────┐");
+			Thread.sleep(2000);
+			System.out.println("　　　　　　　　　　　  짝");
+			System.out.println();
+			System.out.println("　　　결과는 ★좌★3줄★짝★  입니다");
+			gameResult0 = "좌출발";
+			gameResult1 = "3줄";
+			gameResult2 = "짝";
+			if (cm.userChoice().equals(gameResult0) || cm.userChoice().equals(gameResult1)
+					|| cm.userChoice().equals(gameResult2)) {
+				System.out.println("축하합니다. 맞추셨네요~!");
+				sm.coin = (int) (sm.coin + sm.bettingCoin * 1.85);
+				System.out.println("남은 잔액 :" + sm.coin);
+			} else {
+				System.out.println("아쉽네요. 다음엔 맞추세요 ^^");
+				sm.coin = sm.coin - sm.bettingCoin;
+				System.out.println("남은 잔액 :" + sm.coin);
+			}
+
+		} else if (start.randomStartNum() == 1 && startLineStart >= 6) {
+			// 좌출발,4줄
+			System.out.println("　　　　　└───────────┐");
+			Thread.sleep(1000);
+			System.out.println("　　　　　┌───────────┘");
+			Thread.sleep(2000);
+			System.out.println("　　　　　└───────────┐");
+			Thread.sleep(2000);
+			System.out.println("　　　　　┌───────────┘");
+			Thread.sleep(2000);
+			System.out.println("　　　　   홀");
+			System.out.println();
+			System.out.println("　　　결과는 ★좌★4줄★홀★  입니다");
+			gameResult0 = "좌출발";
+			gameResult1 = "4줄";
+			gameResult2 = "홀";
+			if (cm.userChoice().equals(gameResult0) || cm.userChoice().equals(gameResult1)
+					|| cm.userChoice().equals(gameResult2)) {
+				System.out.println("축하합니다. 맞추셨네요~!");
+				sm.coin = (int) (sm.coin + sm.bettingCoin * 1.85);
+				System.out.println("남은 잔액 :" + sm.coin);
+			} else {
+				System.out.println("아쉽네요. 다음엔 맞추세요 ^^");
+				sm.coin = sm.coin - sm.bettingCoin;
+				System.out.println("남은 잔액 :" + sm.coin);
+			}
+
+		} else if (start.randomStartNum() == 2 && startLineStart <= 5) {
+			// 우출발,3줄
+			System.out.println("　　　　　┌───────────┘");
+			Thread.sleep(1000);
+			System.out.println("　　　　　└───────────┐");
+			Thread.sleep(2000);
+			System.out.println("　　　　　┌───────────┘");
+			Thread.sleep(2000);
+			System.out.println("　　　　   홀");
+			System.out.println();
+			System.out.println("　　　결과는 ★우★3줄★홀★  입니다");
+			gameResult0 = "우출발";
+			gameResult1 = "3줄";
+			gameResult2 = "홀";
+			if (cm.userChoice().equals(gameResult0) || cm.userChoice().equals(gameResult1)
+					|| cm.userChoice().equals(gameResult2)) {
+				System.out.println("축하합니다. 맞추셨네요~!");
+				sm.coin = (int) (sm.coin + sm.bettingCoin * 1.85);
+				System.out.println("남은 잔액 :" + sm.coin);
+			} else {
+				System.out.println("아쉽네요. 다음엔 맞추세요 ^^");
+				sm.coin = sm.coin - sm.bettingCoin;
+				System.out.println("남은 잔액 :" + sm.coin);
+			}
+
+		} else if (start.randomStartNum() == 2 && startLineStart >= 6) {
+			// 우출발,4줄
+			System.out.println("　　　　　┌───────────┘");
+			Thread.sleep(1000);
+			System.out.println("　　　　　└───────────┐");
+			Thread.sleep(2000);
+			System.out.println("　　　　　┌───────────┘");
+			Thread.sleep(2000);
+			System.out.println("　　　　　└───────────┐");
+			Thread.sleep(2000);
+			System.out.println("　　　　　　　　　　　  짝");
+			System.out.println();
+			System.out.println("　　　결과는 ★우★4줄★짝★  입니다");
+			gameResult0 = "우출발";
+			gameResult1 = "4줄";
+			gameResult2 = "짝";
+			if (cm.userChoice().equals(gameResult0) || cm.userChoice().equals(gameResult1)
+					|| cm.userChoice().equals(gameResult2)) {
+				System.out.println("축하합니다. 맞추셨네요~!");
+				sm.coin = (int) (sm.coin + sm.bettingCoin * 1.85);
+				System.out.println("남은 잔액 :" + sm.coin);
+			} else {
+				System.out.println("아쉽네요. 다음엔 맞추세요 ^^");
+				sm.coin = sm.coin - sm.bettingCoin;
+				System.out.println("남은 잔액 :" + sm.coin);
+			}
+
+		}
+	}
+}
+
+public class SadarlOneBon {
+	public static void main(String[] args) throws InterruptedException {
+		ShowMenu showMenu = new ShowMenu();
+		Line line = new Line();
+		ChoiceMenu choiceMenu = new ChoiceMenu();
+
+		showMenu.showAll();
+		choiceMenu.userChoice();
+		line.play(showMenu);
+
+	}
+}

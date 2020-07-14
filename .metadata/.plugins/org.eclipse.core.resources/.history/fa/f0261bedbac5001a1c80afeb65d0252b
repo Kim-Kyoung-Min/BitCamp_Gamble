@@ -1,0 +1,216 @@
+﻿package dobak1;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.util.InputMismatchException;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Controller {
+	public Random rd = new Random();
+	public Monster[] mon = new Monster[3];
+	public Character ch = new Character();
+	public Scanner sc = new Scanner(System.in);
+	AsciiArt Art = new AsciiArt();
+	public int sel = 0;
+	public Shop sp = new Shop();
+
+	public void character() throws IOException, InterruptedException {
+		ch.CharacterStatus();
+	}
+
+	// 김경민/전예진 (View 에서 수련인지,전투인지를 받아와서 구현)
+	public boolean battle(String battleNum) throws InterruptedException, IOException {
+
+		int a = rd.nextInt(2);
+		int b = rd.nextInt(2);
+		String c = null;
+		boolean d = true;
+		ch.getMana();
+		switch (battleNum) {
+		case "2":
+			if (a == 0) {
+				Art.AsciiArtCat();
+				mon[sel] = new MonsterCat();
+				if (b == 0) {
+					System.out.println("고양이와 수련을 합니다");
+					while (d) {
+						ch.selectAttack();
+						c = sc.next();
+						d = mon[sel].subHp(ch.battleAttack(mon[sel].monsterHp(), c));
+						if (d == false) {
+							ch.setExp(mon[sel].getExp());
+							ch.setCoin(mon[sel + 0].getCoin());
+							continue;
+						}
+						System.out.println("고양이가 공격합니다");
+						d = ch.subHp(mon[sel].battleAttack(ch.userHp()));
+					}
+
+				} else if (b == 1) {
+					System.out.println("고양이와 수련을 합니다");
+					while (d) {
+						System.out.println("고양이가 공격합니다");
+						d = ch.subHp(mon[sel].battleAttack(ch.userHp()));
+						if (d == false) {
+							continue;
+						}
+						ch.selectAttack();
+						c = sc.next();
+						d = mon[sel].subHp(ch.battleAttack(mon[sel].monsterHp(), c));
+						if (d == false) {
+							ch.setExp(mon[sel].getExp());
+							ch.setCoin(mon[sel].getCoin());
+						}
+
+					}
+				}
+//				return mon[sel].battleRun(ch);
+
+			} else if (a == 1) {
+				Art.AsciiArtDog();
+				mon[sel + 1] = new MonsterDog();
+				if (b == 0) {
+					System.out.println("강아지와 수련합니다");
+					while (d) {
+						ch.selectAttack();
+						c = sc.next();
+
+						d = mon[sel + 1].subHp(ch.battleAttack(mon[sel + 1].monsterHp(), c));
+						if (d == false) {
+							ch.setExp(mon[sel + 1].getExp());
+							ch.setCoin(mon[sel + 1].getCoin());
+							continue;
+						}
+						System.out.println("강아지가 공격합니다");
+						d = ch.subHp(mon[sel + 1].battleAttack(ch.userHp()));
+
+					}
+				} else if (b == 1) {
+					System.out.println("강아지와 수련합니다");
+					while (d) {
+						System.out.println("강아지가 공격합니다");
+						d = ch.subHp(mon[sel + 1].battleAttack(ch.userHp()));
+						if (d == false) {
+							continue;
+						}
+						ch.selectAttack();
+						c = sc.next();
+
+						d = mon[sel + 1].subHp(ch.battleAttack(mon[sel + 1].monsterHp(), c));
+						if (d == false) {
+							ch.setExp(mon[sel + 1].getExp());
+							ch.setCoin(mon[sel + 1].getCoin());
+						}
+					}
+				}
+//				return mon[sel + 1].battleRun(ch);
+
+			}
+			break;
+
+		case "3":
+			Art.AsciiArtBoss();
+			mon[sel + 2] = new MonsterBoss();
+			if (b == 0) {
+				System.out.println("보스(용)와 수련합니다");
+				while (d) {
+					ch.selectAttack();
+					c = sc.next();
+					d = mon[sel + 2].subHp(ch.battleAttack(mon[sel + 2].monsterHp(), c));
+					if (d == false) {
+						ch.setExp(mon[sel + 2].getExp());
+						ch.getArtReword(mon[sel + 2].getReword());
+						ch.setCoin(mon[sel + 2].getCoin());
+						continue;
+					}
+					System.out.println("보스(용)가 공격합니다");
+					d = ch.subHp(mon[sel + 2].battleAttack(ch.userHp()));
+				}
+			} else if (b == 1) {
+				System.out.println("보스(용)와 수련합니다");
+				while (d) {
+					System.out.println("보스(용)가 공격합니다");
+					d = ch.subHp(mon[sel + 2].battleAttack(ch.userHp()));
+					if (d == false) {
+
+						continue;
+					}
+
+					ch.selectAttack();
+					c = sc.next();
+
+					d = mon[sel + 2].subHp(ch.battleAttack(mon[sel + 2].monsterHp(), c));
+					if (d == false) {
+						ch.setExp(mon[sel + 2].getExp());
+						ch.getArtReword(mon[sel + 2].getReword());
+						ch.setCoin(mon[sel + 2].getCoin());
+					}
+
+				}
+			}
+//			return mon[sel + 2].battleRun(ch);
+
+			break;
+		}
+
+		return true;
+	}
+
+	public void rest(String choice) throws InterruptedException, IOException {
+		if (choice.equals("1")) {
+			System.out.println("*****스파를 시작합니다*****");
+			String load = "♥♥♥♥♥";
+			for (int i = 0; i < 50; i++) { // 로딩 표현 반복문 시작
+				String data = load.charAt(i % load.length()) + " "; // load의 길이만큼 나눈후 나머지를 charAt을
+				System.out.write(data.getBytes()); // 0번부터 load 길이인 5만큼 출력
+				Thread.sleep(50); // Thread.sleep을 통해 로딩시간을 표현
+			}
+			System.out.println(); // 개행
+			ch.recovery(10); // recovery 매서드를 통해 회복량을 10 전달
+		} else if (choice.equals("2")) {
+			System.out.println("*****수면을 취합니다*****");
+			String load = "★★★★★";
+			for (int i = 0; i < 80; i++) {
+				String data = load.charAt(i % load.length()) + " ";
+				System.out.write(data.getBytes());
+				Thread.sleep(80);
+			}
+			System.out.println();
+			ch.recovery(20); // recovery 매서드를 통해 회복량을 20 전달
+		} else {
+			System.out.println("숫자를 제대로 입력해주세요 ");
+		}
+
+	}
+
+	public void showArt(int a) {
+		ch.showAsciiArt(a);
+	}
+
+	// 박인제
+	public void save() throws IOException {
+		OutputStream os = new FileOutputStream("Character.ser"); // bridge
+		ObjectOutputStream out = new ObjectOutputStream(os); // filter
+		Character Cha = ch;
+		out.writeObject(Cha);
+		System.out.println("저장 완료");
+	}
+
+	// 박인제
+	public void load() throws IOException, ClassNotFoundException {
+		InputStream is = new FileInputStream("Character.ser");
+		ObjectInputStream in = new ObjectInputStream(is);
+		ch = (Character) in.readObject();
+		System.out.println("불러오기 완료");
+	}
+
+	public void store() throws IOException, InterruptedException {
+		sp.itemStore();
+
+	}
+}

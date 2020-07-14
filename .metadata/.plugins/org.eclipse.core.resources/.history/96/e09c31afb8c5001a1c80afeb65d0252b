@@ -1,0 +1,12 @@
+﻿import java.io.IOException;
+
+public class Main {
+	public static void main(String[] args) throws InterruptedException, ClassNotFoundException, IOException {
+		View vi = new View();
+		while (true) {
+				vi.loop();
+			
+		}
+	}
+
+}

@@ -1,0 +1,104 @@
+﻿import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.util.Random;
+import java.util.Scanner;
+class menu{
+	   final static String INFO = "1";
+	   final static String ATTACK = "2";
+	   final static String TRAINING = "3";
+	   final static String TAKEAREST = "4";
+	   final static String STORE="5";
+	   final static String GETARTSHOW = "6";
+	   final static String SAVE = "7";
+	   final static String LOAD = "8";
+	   final static String EXIT = "9";
+	}
+public class View {
+	static Scanner sc=new Scanner(System.in);
+	static Controller ctr=new Controller();
+	static Random rd=new Random();
+
+
+	
+
+	// 배예진
+	// 1,2,3,4,5,6,7,8,9번 구현 (print로 보이는것 )
+	 public static void menu1() { //1. 메뉴표현을 위해 void menu1을 생성
+		  System.out.println("		     			  *****메뉴를 선택하세요*****");
+		  System.out.println("------------------------------------------------------------------------------------------------");
+	      System.out.print(" ① 캐릭터 정보 보기		② 수련하기		③ 전투하기		④ 휴식하기	⑤ 상점");
+	      System.out.println();
+	      System.out.print(" ⑥ 획득한 전리품 보기	⑦ 저장하기		⑧ 불러오기		⑨ 종료	");
+	      System.out.println();
+	      System.out.println("------------------------------------------------------------------------------------------------");
+	      
+	      
+	   }
+
+	//배예진
+	public static boolean userSelect(String choice) throws InterruptedException, IOException, ClassNotFoundException  {
+	      // 8. 선택값이 usersel int choice로 들어온다
+	      switch(choice){  //9. switch는 choice변수의 값에 따라 case를 통해 기능을 분리했다.
+	      case menu.INFO: //10. final변수로 메뉴클래스 안에 선언해서 불러옴
+	         System.out.println("*****캐릭터 정보 보기*****");
+	         ctr.character();
+	         return true;
+	      case menu.ATTACK:
+	         System.out.println("*****수련을 시작합니다*****");
+	         return ctr.battle(choice);
+	      case menu.TRAINING:
+	         System.out.println("*****전투를 시작합니다*****");
+	         return ctr.battle(choice);
+	      case menu.TAKEAREST:
+	         System.out.println("*****휴식을 시작합니다*****");
+	         System.out.print("① 스파 	 ② 수면 " );
+	         String a = sc.next();
+	         ctr.rest(a);
+	         return true;
+	      case menu.STORE:
+	    	  System.out.println("*****상점을 이용합니다*****");
+	    	  ctr.store();	    	 
+	    	  return true;
+	      case menu.GETARTSHOW:
+	         System.out.println("*****획득한 그림 보기*****");
+	         System.out.println("몇 번째 그림을 보시겠습니까?");
+	         int b=sc.nextInt();
+	         ctr.showArt(b);
+	         return true;
+	      case menu.SAVE:
+	         System.out.println("*****저장*****");
+	         ctr.save();
+	         return true;
+	      case menu.LOAD:
+	         System.out.println("*****불러오기*****");
+	         ctr.load();
+	         return true;
+	      case menu.EXIT:
+	         System.out.println("*****종료*****");
+	         System.exit(0);
+	      default :
+	    	  System.out.println("숫자를 제대로 입력해주세요");
+	    	  break;
+	      }
+	      return true;
+	   }
+
+	
+	public void loop() throws InterruptedException, ClassNotFoundException, IOException {
+		boolean bool=true; //3. while문을 돌리기 위한 변수 선언
+		String choice; // 4. 선택값을 받기 위한 변수 선언
+		AsciiArt.typeAscii(); //조원 로고 출력 
+		
+		while(bool) { //5. 반복문 시작	
+			menu1(); //2. menu1의 println을 출력
+			choice=sc.next(); // 6. 선택 값 입력
+			bool=userSelect(choice); //7. usersel메서드에 선택값을 전달
+		
+		}
+		
+	
+	}
+}
+
